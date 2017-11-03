@@ -1,0 +1,279 @@
+{
+  "name": "youtube-player-embed",
+  "version": "1.0.1",
+  "description": "Enables embeding a YouTube video player on your website.",
+  "displayName": "YouTube Player Embed",
+  "iconPath": "resources/icons/youtube.svg",
+  "author": {
+    "name": "33 Sticks",
+    "url": "https://33sticks.com",
+    "email": "info@33sticks.com"
+  },
+  "events": [
+    {
+      "name": "play",
+      "displayName": "Video Play",
+      "libPath": "src/lib/events/play.js",
+      "viewPath": "playersSelect.html",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "pause",
+      "displayName": "Video Pause",
+      "libPath": "src/lib/events/pause.js",
+      "viewPath": "playersSelect.html",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "end",
+      "displayName": "Video End",
+      "libPath": "src/lib/events/end.js",
+      "viewPath": "playersSelect.html",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "time_played",
+      "displayName": "Time Played",
+      "libPath": "src/lib/events/timePlayed.js",
+      "viewPath": "timePlayed.html",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0
+          },
+          "unit": {
+            "type": "string",
+            "enum": ["percent", "second"]
+          }
+        },
+        "additionalProperties": false,
+        "required": ["amount", "unit"]
+      }
+    }
+  ],
+  "actions": [
+    {
+      "name": "add-player",
+      "displayName": "Add Player",
+      "libPath": "src/lib/actions/addPlayer.js",
+      "viewPath": "addPlayer.html",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "type": "object",
+            "oneOf": [
+              {
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "default"
+                    ]
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "custom"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            ]
+          },
+          "videoDetails": {
+            "oneOf": [
+              {
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "video"
+                    ]
+                  },
+                  "videoId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "elementSelector": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "videoId",
+                  "elementSelector"
+                ]
+              },
+              {
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "playlist"
+                    ]
+                  },
+                  "playlistId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "elementSelector": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "playlistId",
+                  "elementSelector"
+                ]
+              },
+              {
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "search"
+                    ]
+                  },
+                  "query": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "elementSelector": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "query",
+                  "elementSelector"
+                ]
+              }
+            ]
+          },
+          "dimensions": {
+            "type": "object",
+            "properties": {
+              "width": {
+                "type": "string",
+                "minLength": 1
+              },
+              "height": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          },
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "start": {
+                "type": "number",
+                "minLength": 1
+              },
+              "end": {
+                "type": "number",
+                "minLength": 1
+              },
+              "autoplay": {
+                "type": "boolean"
+              },
+              "ccLoadPolicy": {
+                "type": "boolean"
+              },
+              "color": {
+                "type": "string",
+                "enum": [
+                  "red",
+                  "white"
+                ]
+              },
+              "controls": {
+                "type": "boolean"
+              },
+              "disableKb": {
+                "type": "boolean"
+              },
+              "fs": {
+                "type": "boolean"
+              },
+              "showVideoAnnotations": {
+                "type": "boolean"
+              },
+              "loop": {
+                "type": "boolean"
+              },
+              "modestBranding": {
+                "type": "boolean"
+              },
+              "rel": {
+                "type": "boolean"
+              },
+              "showInfo": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "videoDetails"
+        ]
+      }
+    }
+  ],
+  "viewBasePath": "dist/"
+}
