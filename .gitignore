@@ -1,6 +1,6 @@
 *.zip
-package-lock.json
-package-youtube-player-iframe-api-*/**
 .DS_Store
+package-lock.json
+package-youtube-player-embed-*/**
 node_modules/**
 dist/**
