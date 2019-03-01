@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "css-loader": "^0.25.0",
-    "deep-extend": "^0.4.2",
+    "deep-extend": ">=0.5.1",
     "deep-get-set": "^1.1.0",
     "history": "^4.7.2",
     "import-glob-loader": "^1.1.0",
